@@ -1,0 +1,717 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>Gp Bootstrap Template - Index</title>
+	<meta content="" name="descriptison">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+	<link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet">
+
+	<!-- Vendor CSS Files -->
+	<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+	<!-- Template Main CSS File -->
+	<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+	<!-- =======================================================
+  * Template Name: Gp - v2.1.0
+  * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+	<div id="app">
+		<!-- ======= Header ======= -->
+		<header id="header" class="fixed-top ">
+			<div class="container d-flex align-items-center justify-content-between">
+
+				<h1 class="logo"><a href="{% url 'index' %}">Gp<span>.</span></a></h1>
+				<!-- Uncomment below if you prefer to use an image logo -->
+				<!-- <a href="{% url 'index' %}" class="logo"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+
+				<nav class="nav-menu d-none d-lg-block">
+					<ul>
+						<li class="active"><a href="{% url 'index' %}">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#services">Services</a></li>
+						<li><a href="#portfolio">Portfolio</a></li>
+						<li><a href="#team">Team</a></li>
+
+						<li><a href="#contact">Contact</a></li>
+
+					</ul>
+				</nav><!-- .nav-menu -->
+
+
+				{% if user.is_authenticated %}
+				<a href="{%url 'user-settings' %}" class="nav-link btn-info rounded ">{{user.username}}</a>
+				<a href="{%url 'logout'%}" class="nav-link btn-dinger rounded text-wrapped">Logout</a>
+
+				{% else%}
+				<a href="{% url 'register' %}" class="text-success"> Register</a>
+				<a href="{% url 'login' %}" class="text-info"> Login </a>
+				{% endif %}
+
+
+			</div>
+		</header><!-- End Header -->
+
+		<!-- ======= Hero Section ======= -->
+		<section id="hero" class="d-flex align-items-center justify-content-center">
+			<div class="container" data-aos="fade-up">
+
+				<div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+					<div class="col-xl-6 col-lg-8">
+						<h1>${presentations[0].title}<span>.</span></h1>
+						<h2>${presentations[0].description}</h2>
+					</div>
+				</div>
+
+				<div class="row mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+					<div class="col-xl-2 col-md-4 col-6" v-for="h in hero">
+						<div class="icon-box">
+							<i :class="h.icon"></i>
+							<h3><a href="">${h.title} </a></h3>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section><!-- End Hero -->
+
+		<main id="main">
+
+			<!-- ======= About Section ======= -->
+			<section id="about" class="about">
+				<div class="container" data-aos="fade-up">
+
+					<div class="row">
+						<div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+							<img :src="about[0].image" class="img-fluid" alt="">
+						</div>
+						<div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right"
+							data-aos-delay="100">
+							<h3>${about[0].title}</h3>
+							<p class="font-italic">
+								${about[0].description}
+							</p>
+
+						</div>
+					</div>
+
+				</div>
+			</section><!-- End About Section -->
+
+			<!-- ======= Clients Section ======= -->
+			<section id="clients" class="clients">
+				<div class="container" data-aos="zoom-in">
+
+					<div class="owl-carousel clients-carousel">
+						<span v-for="c in client">
+							<img :src="c.logo" alt="">
+						</span>
+
+
+					</div>
+
+				</div>
+			</section><!-- End Clients Section -->
+
+			<!-- ======= Features Section ======= -->
+			<section id="features" class="features">
+				<div class="container" data-aos="fade-up">
+
+					<div class="row">
+						<div class="image col-lg-6" style="fbg" data-aos="fade-right">
+							<img :src="feature[1].image" alt="" class="img-fluid">
+
+						</div>
+						<div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+							<div class="icon-box mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="150"
+								v-for="f in feature">
+								<i :class="f.icon"></i>
+								<h4>${f.title} </h4>
+								<p>${f.description}
+								</p>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</section><!-- End Features Section -->
+
+			<!-- ======= Services Section ======= -->
+			<section id="services" class="services">
+				<div class="container" data-aos="fade-up">
+
+					<div class="section-title">
+						<h2>Services</h2>
+						<p>Check our Services</p>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in"
+							data-aos-delay="100" v-for="s in service">
+							<div class="icon-box">
+								<div class="icon"><i :class="s.icon"></i></div>
+								<h4><a href="">${s.title} </a></h4>
+								<p>${s.description} </p>
+							</div>
+						</div>
+
+
+
+					</div>
+			</section><!-- End Services Section -->
+
+			<!-- ======= Cta Section ======= -->
+			<section id="cta" class="cta">
+				<div class="container" data-aos="zoom-in">
+
+					<div class="text-center">
+						<h3>${cta[0].title} </h3>
+						<p> ${cta[0].description} </p>
+						<a class="cta-btn" href="#">${cta[0].title}</a>
+					</div>
+
+				</div>
+			</section><!-- End Cta Section -->
+
+			<!-- ======= Portfolio Section ======= -->
+			<section id="portfolio" class="portfolio">
+				<div class="container" data-aos="fade-up">
+
+					<div class="section-title">
+						<h2>Portfolio</h2>
+						<p>Check our Portfolio</p>
+					</div>
+
+					<div class="row" data-aos="fade-up" data-aos-delay="100">
+						<div class="col-lg-12 d-flex justify-content-center">
+							<ul id="portfolio-flters">
+								<li data-filter="*" class="filter-active">All</li>
+								<li data-filter=".filter-app" v-for="c in categories">${c.name}</li>
+
+							</ul>
+						</div>
+					</div>
+
+					<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+						<div class="col-lg-4 col-md-6 portfolio-item filter-app" v-for="p in portfolio">
+							<div class="portfolio-wrap">
+								<img :src="p.image" class="img-fluid" alt="">
+								<div class="portfolio-info">
+									<h4>${p.name} </h4>
+									<p>${p.category}</p>
+									<div class="portfolio-links">
+										<a :href="p.image" data-gall="portfolioGallery" class="venobox" title="App 1"><i
+												class="bx bx-plus"></i></a>
+										<a :href="p.link" title="More Details"><i
+												class="bx bx-link"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</section><!-- End Portfolio Section -->
+
+			<!-- ======= Counts Section ======= -->
+			<section id="counts" class="counts">
+				<div class="container" data-aos="fade-up">
+
+					<div class="row no-gutters">
+						<div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start"
+							data-aos="fade-right" data-aos-delay="100"></div>
+						<div class="col-xl-7 pl-0 pl-lg-5 pr-lg-1 d-flex align-items-stretch" data-aos="fade-left"
+							data-aos-delay="100" v-for="c in count">
+							<div class="content d-flex flex-column justify-content-center">
+								<h3>${c.title} </h3>
+								<p>
+									${c.description}
+								</p>
+								<div class="row">
+									<div class="col-md-6 d-md-flex align-items-md-stretch">
+										<div class="count-box">
+											<i class="icofont-simple-smile"></i>
+											<span data-toggle="counter-up">${c.happy_clients}</span>
+											<p>${c.happy_text}</p>
+										</div>
+									</div>
+
+									<div class="col-md-6 d-md-flex align-items-md-stretch">
+										<div class="count-box">
+											<i class="icofont-document-folder"></i>
+											<span data-toggle="counter-up">${c.projects}</span>
+											<p>${c.projects_text}
+											</p>
+										</div>
+									</div>
+
+									<div class="col-md-6 d-md-flex align-items-md-stretch">
+										<div class="count-box">
+											<i class="icofont-clock-time"></i>
+											<span data-toggle="counter-up">${c.years}</span>
+											<p> ${c.years_text} </p>
+										</div>
+									</div>
+
+									<div class="col-md-6 d-md-flex align-items-md-stretch">
+										<div class="count-box">
+											<i class="icofont-award"></i>
+											<span data-toggle="counter-up">${c.awards}</span>
+											<p>${c.awards_text} </p>
+										</div>
+									</div>
+								</div>
+							</div><!-- End .content-->
+						</div>
+					</div>
+
+				</div>
+			</section><!-- End Counts Section -->
+
+			<!-- ======= Testimonials Section ======= -->
+			<section id="testimonials" class="testimonials">
+				<div class="container" data-aos="zoom-in">
+
+					<div class="owl-carousel testimonials-carousel">
+
+						<div class="testimonial-item" v-for="t in testimonial">
+							<img :src="t.image" class="testimonial-img" alt="">
+							<h3>${t.name} </h3>
+							<h4>${t.job} </h4>
+							<p>
+								<i class="bx bxs-quote-alt-left quote-icon-left"></i>
+								${t.message}
+								<i class="bx bxs-quote-alt-right quote-icon-right"></i>
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+			</section><!-- End Testimonials Section -->
+
+			<!-- ======= Team Section ======= -->
+			<section id="team" class="team">
+				<div class="container" data-aos="fade-up">
+
+					<div class="section-title">
+						<h2>Team</h2>
+						<p>Check our Team</p>
+					</div>
+
+					<div class="row">
+
+						<div class="col-lg-3 col-md-6 d-flex align-items-stretch" v-for="t in team">
+							<div class="member" data-aos="fade-up" data-aos-delay="100">
+								<div class="member-img">
+									<img :src="t.image" class="img-fluid" alt="" width="255" height="255"
+										style="width:255px !important; height:255px !important;">
+
+								</div>
+								<div class="member-info">
+									<h4>${t.name}</h4>
+									<span>${t.job} </span>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</section><!-- End Team Section -->
+
+			<!-- ======= Contact Section ======= -->
+			<section id="contact" class="contact">
+				<div class="container" data-aos="fade-up">
+
+					<div class="section-title">
+						<h2>Contact</h2>
+						<p>Contact Us</p>
+					</div>
+
+					<div>
+						<iframe style="border:0; width: 100%; height: 270px;" :src="site_info[0].map_url"
+							frameborder="0" allowfullscreen></iframe>
+					</div>
+
+					<div class="row mt-5">
+
+						<div class="col-lg-4">
+							<div class="info">
+								<div class="address">
+									<i class="icofont-google-map"></i>
+									<h4>Location:</h4>
+									<p>${contact[0].address} </p>
+								</div>
+
+								<div class="email">
+									<i class="icofont-envelope"></i>
+									<h4>Email:</h4>
+									<p>${site_info[0].email} </p>
+								</div>
+
+								<div class="phone">
+									<i class="icofont-phone"></i>
+									<h4>Call:</h4>
+									<p>${contact[0].phone} </p>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="col-lg-8 mt-5 mt-lg-0">
+
+							<form action="" method="post">
+								{% csrf_token %}	
+								<div class="form-row">
+									<div class="col-md-6 form-group">
+										<input type="text" name="name" class="form-control" id="name"
+											placeholder="Your Name" data-rule="minlen:4"
+											data-msg="Please enter at least 4 chars" />
+										<div class="validate"></div>
+									</div>
+									<div class="col-md-6 form-group">
+										<input type="email" class="form-control" name="email" id="email"
+											placeholder="Your Email" data-rule="email"
+											data-msg="Please enter a valid email" />
+										<div class="validate"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="subject" id="subject"
+										placeholder="Subject" data-rule="minlen:4"
+										data-msg="Please enter at least 8 chars of subject" />
+									<div class="validate"></div>
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" name="message" rows="5" data-rule="required"
+										data-msg="Please write something for us" placeholder="Message"></textarea>
+									<div class="validate"></div>
+								</div>
+								<div class="mb-3">
+									<div class="loading">Loading</div>
+									<div class="error-message"></div>
+									<div class="sent-message">Your message has been sent. Thank you!</div>
+								</div>
+								<div class="text-center"><button type="submit">Send Message</button></div>
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+			</section><!-- End Contact Section -->
+
+		</main><!-- End #main -->
+
+		<!-- ======= Footer ======= -->
+		<footer id="footer">
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+
+						<div class="col-lg-3 col-md-6">
+							<div class="footer-info">
+								<h3>Gp<span>.</span></h3>
+								<p>
+									${contact[0].address} <br>
+									<strong>Phone:</strong> ${contact[0].phone}<br>
+									<strong>Email:</strong> ${contact[0].email}<br>
+								</p>
+								
+								{% comment %}
+									
+								
+									
+								<div class="social-links mt-3">
+									<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+									<a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+									<a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+									<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+									<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+								</div>{% endcomment %}
+							</div>
+						</div>
+
+						<div class="col-lg-2 col-md-6 footer-links">
+							<h4>Useful Links</h4>
+							<ul>
+								<li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+								<li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+								<li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+							</ul>
+						</div>
+
+						<div class="col-lg-3 col-md-6 footer-links">
+							<h4>Our Services</h4>
+							<ul>
+								<li v-for="s in service"><i class="bx bx-chevron-right"></i> <a href="#">${s.title} </a></li>
+								
+							</ul>
+						</div>
+
+						<div class="col-lg-4 col-md-6 footer-newsletter">
+							<h4>Our Newsletter</h4>
+							<p>${newsletter[0].description}</p>
+							<form action="" method="POST">
+								{% csrf_token %}
+								<input type="email" name="email"><input type="submit" value="Subscribe">
+							</form>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="copyright">
+					&copy; Copyright <strong><span>Gp</span></strong>. All Rights Reserved
+				</div>
+				<div class="credits">
+					<!-- All the links in the footer should remain intact. -->
+					<!-- You can delete the links only if you purchased the pro version. -->
+					<!-- Licensing information: https://bootstrapmade.com/license/ -->
+					<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/ -->
+					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+				</div>
+			</div>
+		</footer><!-- End Footer -->
+	</div>
+	<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+	<div id="preloader"></div>
+
+	<!-- Vendor JS Files -->
+	<script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+	<script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/counterup/counterup.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+	<!-- Template Main JS File -->
+	<script src="{% static 'assets/js/main.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				categories: [],
+				site_info: [],
+				presentations: [],
+				about: [],
+				contact: [],
+				contact_form: [],
+				newsletter: [],
+				team: [],
+				portfolio: [],
+				service: [],
+				hero: [],
+				client: [],
+				testimonial: [],
+				feature: [],
+				cta: [],
+				count: [],
+				
+
+
+
+			},
+			delimiters: ['${', '}'],
+			mounted() {
+				this.getData()
+			},
+			methods: {
+				getData: function () {
+
+					// for (i = 0; i <= Object.keys(app._data).length; i++) {
+					// 	axios.get(`${window.location.origin}/api/${app._data[Object.keys(app_data[i])]}`)
+					// 		.then((response) => {
+					// 			result = response.data
+					// 			console.log(response)
+
+					// 		})
+					// 		.catch(e => {
+					// 			console.log(e)
+					// 		})
+					// }
+
+					axios.get(`${window.location.origin}/api/about`)
+						.then((response) => {
+							this.about = response.data
+							console.log(this.about)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+
+					axios.get(`${window.location.origin}/api/categories`)
+						.then((response) => {
+							this.categories = response.data
+							console.log(this.categories)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/presentations`)
+						.then((response) => {
+							this.presentations = response.data
+							console.log(this.presentations)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/contact`)
+						.then((response) => {
+							this.contact = response.data
+							console.log(this.contact)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/team`)
+						.then((response) => {
+							this.team = response.data
+							console.log(this.team)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/portfolio`)
+						.then((response) => {
+							this.portfolio = response.data
+							console.log(this.categories)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/service`)
+						.then((response) => {
+							this.service = response.data
+							console.log(this.service)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/siteInfo`)
+						.then((response) => {
+							this.site_info = response.data
+							console.log(this.site_info)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/newsletter`)
+						.then((response) => {
+							this.newsletter = response.data
+							console.log(this.newsletter)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/contactForm`)
+						.then((response) => {
+							this.contact_form = response.data
+							console.log(this.contact_form)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/hero`)
+						.then((response) => {
+							this.hero = response.data
+							console.log(this.hero)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/client`)
+						.then((response) => {
+							this.client = response.data
+							console.log(this.client)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/testimonial`)
+						.then((response) => {
+							this.testimonial = response.data
+							console.log(this.testimonial)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/count`)
+						.then((response) => {
+							this.count = response.data
+							console.log(this.count)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/cta`)
+						.then((response) => {
+							this.cta = response.data
+							console.log(this.cta)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+					axios.get(`${window.location.origin}/api/feature`)
+						.then((response) => {
+							this.feature = response.data
+							console.log(this.feature)
+						})
+						.catch(e => {
+							console.log(e)
+						});
+
+
+				},
+			}
+		})
+	</script>
+
+</body>
+
+</html>
