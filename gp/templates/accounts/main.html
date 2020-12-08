@@ -28,66 +28,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">LESAGE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon navbar-toggler-icon "></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
-            
-            
-            {% if request.user.is_staff %}
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link " href="{% url 'home'%}">Dashboard</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'products'%}">Products</a>
-              </li>
-
-            </ul>
-            
-
-            {% endif %}
-              
-              
-            
-          <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
-        </div>
-        {% if user.is_authenticated %}
-              
-        <div class="dropdown " style='margin-right: 20px;'>
-          <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='margin-right: 20px;'>
-            <img src="{{request.user.customer.profile_pic.url}}" alt="" width=50 heigh=10 style="border-radius: 50%;"> 
-          </button>
-          <div class="dropdown-menu " aria-labelledby="dropdownMenuButton" style='margin-right: 300px;'>
-            <a class="dropdown-item" href="{% url 'user-settings' %}">Profile</a>
-            <a class="dropdown-item" href="{% url 'customer' request.user.customer.id %}">My Account </a>
-            <a class="dropdown-item" href="{% url 'user' %}">Orders Statistics</a>
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-          </div>
-        </div>
-
-<!-- 
-                  <span class="nav-link " style="margin-right: 20px;"> <img src="{{request.user.customer.profile_pic.url}}" alt="" width=50 heigh=10 style="border-radius: 50%;"> </span>
-                  <span><a href="{% url 'user-settings' %}" class="nav-link  btn btn-primary" style="margin-right: 20px;"> Profile</a></span>
-                  <span><a href="{% url 'customer' request.user.customer.id %}" class="nav-link  btn btn-success" style="margin-right: 20px;"> My Account</a></span>
-                  <span><a href="{% url 'logout' %}" class="nav-link  btn btn-danger"> Logout</a></span>
- -->
-
-        
-        {% else %}
-        <span><a href="{% url 'login' %}" class="nav-link  btn btn-primary" style="margin-right: 20px;"> Login</a></span>
-        <span><a href="{% url 'register' %}" class="nav-link  btn btn-success"> Register</a></span>
-        
-              
-        {% endif %}
-      </nav>
+    
     <div class="container-fluid">
         {% block content %}
         {% endblock content %}

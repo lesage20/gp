@@ -39,6 +39,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  
 </head>
 
 <body>
@@ -129,17 +131,14 @@
 			<section id="clients" class="clients">
 				<div class="container" data-aos="zoom-in">
 					
-					<div class="owl-carousel clients-carousel">
-						<img src="{% static 'assets/img/clients/client-1.png' %}" alt="">
-						<img src="{% static 'assets/img/clients/client-2.png' %}" alt="">
-						<img src="{% static 'assets/img/clients/client-3.png' %}" alt="">
-						<img src="{% static 'assets/img/clients/client-4.png' %}" alt="">
-						<img src="{% static 'assets/img/clients/client-5.png' %}" alt="">
-						<img src="{% static 'assets/img/clients/client-6.png' %}" alt="">
+					<div >
+						
+								
+						
 					
-					{% comment %}
-						img  v-for="c in client :src="c.logo" alt="">
-					{% endcomment %}	
+						
+						<img  v-for="c in client" :src="c.logo" alt="" width="100" height="50" class="d.inline mx-3">
+						
 						
 
 
@@ -223,7 +222,7 @@
 						<div class="col-lg-12 d-flex justify-content-center">
 							<ul id="portfolio-flters">
 								<li data-filter="*" class="filter-active">All</li>
-								<li data-filter=".filter-app" v-for="c in categories">${c.name}</li>
+								<li :data-filter="c.name" v-for="c in categories"   >${c.name}</li>
 
 							</ul>
 						</div>
@@ -231,12 +230,12 @@
 
 					<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
-						<div class="col-lg-4 col-md-6 portfolio-item filter-app" v-for="p in portfolio">
+						<div :class="'col-lg-4 col-md-6 portfolio-item filter-'+p.category.name"  v-for="p in portfolio" >
 							<div class="portfolio-wrap">
 								<img :src="p.image" class="img-fluid" alt="">
 								<div class="portfolio-info">
 									<h4>${p.name} </h4>
-									<p>${p.category}</p>
+									<p>${p.category.name}</p>
 									<div class="portfolio-links">
 										<a :href="p.image" data-gall="portfolioGallery" class="venobox" title="App 1"><i
 												class="bx bx-plus"></i></a>
@@ -537,10 +536,64 @@
 	<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
 
 	<!-- Template Main JS File -->
-	<script src="{% static 'assets/js/main.js' %}"></script>
+	
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
 
+         		<script>
+			var pcategories = []
+			document.onload = function() {
+				setTimeout(()=> {
+					pcategories = document.querySelectorAll("#portfolio-flters > li")
+					var filters = []
+					for (i=0; i<pcategories.length; i++){
+						pcategories[i].addEventListener('click', function(){
+							app._data.portfolio = app._data.portfolios
+							pcategories.forEach((el) => {
+							el.classList.remove('filter-active')
+					})
+						this.classList.toggle("filter-active")
+						app._data.categories.forEach((el)=> {
+								filters.push(el.name);
+								
+							})
+						if (filters.includes(this.dataset.filter)){
+							
+							port = []
+							app._data.portfolio.forEach((el)=>{
+								if (el.category.name == this.dataset.filter){
+									port.push(el)
+									
+								} 
+								app._data.portfolio = port 
+								
+							})
+							
+							
+						
+
+						
+						} else if (this.dataset.filter=="*") {
+									app._data.portfolio = app._data.portfolios
+								}
+						
+
+					
+					}) 
+					}
+					
+						
+				}, 1000)
+
+			}
+			document.onload()
+			
+			
+
+			
+			
+		</script>
 	<script>
 		var app = new Vue({
 			el: '#app',
@@ -561,6 +614,7 @@
 				feature: [],
 				cta: [],
 				count: [],
+				portfolios: []
 				
 
 
@@ -571,6 +625,10 @@
 				this.getData()
 			},
 			methods: {
+				clickFilter () {
+					console.log("ok")
+					
+				},
 				getData: function () {
 
 					// for (i = 0; i <= Object.keys(app._data).length; i++) {
@@ -588,7 +646,7 @@
 					axios.get(`${window.location.origin}/api/about`)
 						.then((response) => {
 							this.about = response.data
-							console.log(this.about)
+							// console.log(this.about)
 						})
 						.catch(e => {
 							console.log(e)
@@ -597,7 +655,7 @@
 					axios.get(`${window.location.origin}/api/categories`)
 						.then((response) => {
 							this.categories = response.data
-							console.log(this.categories)
+							// console.log(this.categories)
 						})
 						.catch(e => {
 							console.log(e)
@@ -605,7 +663,7 @@
 					axios.get(`${window.location.origin}/api/presentations`)
 						.then((response) => {
 							this.presentations = response.data
-							console.log(this.presentations)
+							// console.log(this.presentations)
 						})
 						.catch(e => {
 							console.log(e)
@@ -613,7 +671,7 @@
 					axios.get(`${window.location.origin}/api/contact`)
 						.then((response) => {
 							this.contact = response.data
-							console.log(this.contact)
+							// console.log(this.contact)
 						})
 						.catch(e => {
 							console.log(e)
@@ -621,7 +679,7 @@
 					axios.get(`${window.location.origin}/api/team`)
 						.then((response) => {
 							this.team = response.data
-							console.log(this.team)
+							// console.log(this.team)
 						})
 						.catch(e => {
 							console.log(e)
@@ -629,7 +687,8 @@
 					axios.get(`${window.location.origin}/api/portfolio`)
 						.then((response) => {
 							this.portfolio = response.data
-							console.log(this.categories)
+							this.portfolios = response.data
+							console.log(this.portfolios)
 						})
 						.catch(e => {
 							console.log(e)
@@ -637,7 +696,7 @@
 					axios.get(`${window.location.origin}/api/service`)
 						.then((response) => {
 							this.service = response.data
-							console.log(this.service)
+							// console.log(this.service)
 						})
 						.catch(e => {
 							console.log(e)
@@ -645,7 +704,7 @@
 					axios.get(`${window.location.origin}/api/siteInfo`)
 						.then((response) => {
 							this.site_info = response.data
-							console.log(this.site_info)
+							// console.log(this.site_info)
 						})
 						.catch(e => {
 							console.log(e)
@@ -653,7 +712,7 @@
 					axios.get(`${window.location.origin}/api/newsletter`)
 						.then((response) => {
 							this.newsletter = response.data
-							console.log(this.newsletter)
+							// console.log(this.newsletter)
 						})
 						.catch(e => {
 							console.log(e)
@@ -661,7 +720,7 @@
 					axios.get(`${window.location.origin}/api/contactForm`)
 						.then((response) => {
 							this.contact_form = response.data
-							console.log(this.contact_form)
+							// console.log(this.contact_form)
 						})
 						.catch(e => {
 							console.log(e)
@@ -669,7 +728,7 @@
 					axios.get(`${window.location.origin}/api/hero`)
 						.then((response) => {
 							this.hero = response.data
-							console.log(this.hero)
+							// console.log(this.hero)
 						})
 						.catch(e => {
 							console.log(e)
@@ -677,7 +736,7 @@
 					axios.get(`${window.location.origin}/api/client`)
 						.then((response) => {
 							this.client = response.data
-							console.log(this.client)
+							// console.log(this.client)
 						})
 						.catch(e => {
 							console.log(e)
@@ -685,7 +744,7 @@
 					axios.get(`${window.location.origin}/api/testimonial`)
 						.then((response) => {
 							this.testimonial = response.data
-							console.log(this.testimonial)
+							// console.log(this.testimonial)
 						})
 						.catch(e => {
 							console.log(e)
@@ -693,7 +752,7 @@
 					axios.get(`${window.location.origin}/api/count`)
 						.then((response) => {
 							this.count = response.data
-							console.log(this.count)
+							// console.log(this.count)
 						})
 						.catch(e => {
 							console.log(e)
@@ -701,7 +760,7 @@
 					axios.get(`${window.location.origin}/api/cta`)
 						.then((response) => {
 							this.cta = response.data
-							console.log(this.cta)
+							// console.log(this.cta)
 						})
 						.catch(e => {
 							console.log(e)
@@ -709,7 +768,7 @@
 					axios.get(`${window.location.origin}/api/feature`)
 						.then((response) => {
 							this.feature = response.data
-							console.log(this.feature)
+							// console.log(this.feature)
 						})
 						.catch(e => {
 							console.log(e)
@@ -720,6 +779,7 @@
 			}
 		})
 	</script>
+	
 
 </body>
 

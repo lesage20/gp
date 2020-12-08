@@ -11,8 +11,14 @@ class CategoryRelatedField(serializers.RelatedField):
             
         }
 
+class PortfolioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Portfolio
+        fields = "__all__"
+        depth = 1
 
 class CategorySerializer(serializers.ModelSerializer):
+    portfolio_cat = PortfolioSerializer(many=True)
     class Meta:
         model = Category
         fields = "__all__"
@@ -53,12 +59,7 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = "__all__"
 
-class PortfolioSerializer(serializers.ModelSerializer):
-    
-    
-    class Meta:
-        model = Portfolio
-        fields = "__all__"
+
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:

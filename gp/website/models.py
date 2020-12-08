@@ -11,6 +11,7 @@ from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    
 
     status = models.BooleanField(default=True)
     date_add = models.DateTimeField(auto_now_add=True)
@@ -22,6 +23,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    @property
+    def get_portfolios(self):
+        return self.portfolios.all()
 
 
 class Presentation(models.Model):
